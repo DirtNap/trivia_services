@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '&s6+21jal4he(0p0x4ht(ya*%k@o9nm6hc$2fr-_s*2wwf8q24'
+SECRET_KEY = os.environ.get('NPT_DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -75,8 +75,12 @@ WSGI_APPLICATION = 'npt.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('NPT_DJANGO_DATABASE_NAME'),
+        'PASSWORD': os.environ.get('NPT_DJANGO_DATABASE_PASS'),
+        'USER': os.environ.get('NPT_DJANGO_DATABASE_USER'),
+        'HOST': os.environ.get('NPT_DJANGO_DATABASE_HOST', 'localhost'),
+        'PORT': os.environ.get('NPT_DJANGO_DATABASE_PORT', 5432),
     }
 }
 
